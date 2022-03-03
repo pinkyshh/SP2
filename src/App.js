@@ -6,9 +6,9 @@ import Navbar from './components/Navbar.js'
 import Home from './components/Home.js'
 import Survey from './components/Survey.js'
 import SurveyQuestions from './components/SurveyQuestions';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Profile from './components/Profile'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Footer from './components/Footer';
-import {BrowserRouter as Router} from 'react-router-dom'
 
 function App() {
   return (
@@ -17,7 +17,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="survey" element={<Survey />} />
-        <Route path="profile" element={<SurveyQuestions />} />
+        <Route path="surveys/:id" element={<SurveyQuestions/>} />
+        <Route path="profile" element={<Profile/>}/>
       </Routes>
       <Footer />
     </BrowserRouter>

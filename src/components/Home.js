@@ -1,8 +1,9 @@
-import React from 'react'
+ import React from 'react'
 import aboutImage from '../assets/images/about-image.jpg'
+import surveyClip from '../assets/images/surveyClip.png'
 import cat from '../assets/images/cat.png'
 import electricCar from '../assets/images/electric-car.png'
-import building from '../assets/images/building.png'
+import road from '../assets/images/work-tools.png'
 import { Link } from 'react-router-dom'
 
 
@@ -51,9 +52,8 @@ function Home() {
                     </div>
             </div>
         </section>
-            {/* About End  */}
 
-            <section id="work" class="parallax-section">
+        <section id="work" class="parallax-section">
                 <div class="container">
                         <div class="row">
                                 <div class="col-md-12 col-sm-12">
@@ -63,80 +63,76 @@ function Home() {
                                     </div>
                                 </div>
 
-                                <div class="service">
-                                    <div class="container">
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.0s">
-                                        <div class="service-item">
-                                            <div class="service-icon">
+                                <div className="service">
+                                    <div className="container">
+                                    <div className="row">
+                                        <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.0s">
+                                        <div className="service-item">
+                                        <Link to="/cat" className="nav-item nav-link active is-active" active-color="cyan">
+                                            <div className="service-icon">
                                                 <img src={cat} width="150px" height="150px"/>
                                             </div>
+                                            </Link> 
                                             <h3>Cat</h3>
                                         </div>
                                         </div>
 
-                                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                                        <div class="service-item active">
-                                            <div class="service-icon">
-                                                <img src={electricCar}/>
+                                        <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                                        <div className="service-item active">
+                                        <Link to="/car" className="nav-item nav-link active is-active" active-color="cyan">
+                                                <div className="service-icon">
+                                                        <img src={electricCar} alt="Electric Car" width="150px" height="150px" />
+                                                </div>
+                                                <h3>Car</h3>
+                                        </Link>
+                                        </div>
+                                        </div>
+
+                                        <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
+                                        <div className="service-item">
+                                            <div className="service-icon">
+                                                <img src={road}/>
                                             </div>
-                                            <h3>Car</h3>
-                                        </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
-                                        <div class="service-item">
-                                            <div class="service-icon">
-                                                <img src={building}/>
-                                            </div>
-                                            <h3>Buildings</h3>
+                                            <h3>Roads</h3>
                                         </div>
                                         </div>
 
 
-                                    </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
             </section>
-            {/* Survey End  */}
+            {/* Service End  */}
 
             {/* CONTACT SECTION  */}
             <section id="contact" className="parallax-section">
                 <div className="container">
-                    <div className="row">     
-                        <div className="col-md-12 col-sm-12">
-                         {/* SECTION TITLE */}
-                            <div className="wow fadeInUp section-title" data-wow-delay="0.2s">
-                                <h2>Got any questions?</h2>
-                                <p>Don't be shy & say hello - we promise we don't bite!</p>
+                    <div className="col-md-12 col-sm-12">
+                        <img src={surveyClip} className="wow fadeInUp img-responsive jc-center" data-wow-delay="0.2s" alt="about image" style={{float: 'right'}}/>
+                    </div>
+
+                    <div className="col-md-12 col-sm-12">
+                        {/* SECTION TITLE */}
+                        <div className="wow fadeInUp section-title" data-wow-delay="0.2s">
+                            <h2>Go beyond collecting feedback</h2>
+                            <p>Host your surveys on iLearn that can help drive change in your organisation.</p>
+                        </div>
+                    </div>
+                  
+                    <div className="col-md-12 col-sm-12">
+                        <div className="about-thumb">
+                            <div className="wow fadeInUp section-title" data-wow-delay="0.6s">
+                                <h3>Market Research</h3>
+                                <p>Conduct market research quickly.</p>
+                                <p>Expand your market research capabilities by finding images for you products packaging or ads based on target audience's preference.</p>
                             </div>
                         </div>
-
-                <div className="col-md-12 col-sm-12">
-                    {/* CONTACT FORM HERE */}
-                   <div className="wow fadeInUp" data-wow-delay="0.6s">
-                       <form action="#" method="post" id="contact-form">
-                              <div class="col-md-6 col-sm-6">
-                                   <input type="text" class="form-control" name="name" placeholder="Name"/>
-                              </div>
-                              {/* <div class="col-md-6 col-sm-6">
-                                   <input type="email" class="form-control" name="email" placeholder="Email"/>
-                              </div> */}
-                              <div class="col-md-12 col-sm-12">
-                                   <textarea class="form-control" rows="5" name="message" placeholder="Message"></textarea>
-                              </div>
-                              <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6">
-                                   <button id="submit" type="submit" class="form-control" value="send-mail" name="submit">Send Message</button>
-                              </div>
-                        </form>
-                   </div>
-              </div>
-              </div>
-         </div>
-        </section>
-    </div>
+                    </div>
+                 </div>
+            </section>
+        </div>
     )
 }
 

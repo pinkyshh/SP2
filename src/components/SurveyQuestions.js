@@ -1,185 +1,107 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
+import SurveryComponents  from "./SurveryComponents";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
-const Surveys = props => (
-<div className="img" >
-    <ul>
-        <li><input type="checkbox" id="cb1"/>
-        <label for ="cb1">
-            <div className="col-md-3" data-wow-delay="0.0s">
-                <img src={props.source.image_link} alt={props.source.tag} width="50px" height="50px"  className="img-survey"/>
-                <a href={props.source.image_link} active-color="cyan" width="50px" height="50px" />
-            </div>
-        </label>
-        </li>
-    </ul>
-</div>
-)
+export const SurveyQuestions = () => {
+    const params = useParams();
+    const [surveys, setSurveys] = useState([]);
+    const [questions, setQuestions] = useState([]);
+    const [currentPage, setCurrentPage] =useState(1);
+    const [postsPerPage] = useState(5);
 
-export default class SurveyQuestions extends Component {
-    constructor(props) {
-        super(props);
+    useEffect(() => {
+        const fetchSurveys = async () => {
+            const res = await axios.get(`http://localhost:3500/surveys/${params.id}`);
+            console.log(res);
+            setSurveys(res.data);
+            setCurrentPage(1)
+        };
+        fetchSurveys();
+    }, []);
 
-        this.state = {
-            surveyList: []
+    useEffect(() => {
+        // Limit only 6 questions from x amount of surveys
+        if(surveys.length > 0) {
+            var posts = []
+            var lastIndex = currentPage * postsPerPage;
+
+            if (lastIndex > surveys.length) {
+                lastIndex = surveys.length;
+            }
+
+            var startIndex = lastIndex - postsPerPage;
+
+            for ( let i=startIndex; i < lastIndex; i++) {
+                posts.push(surveys[i]);
+            }
+
+            setQuestions(posts)
         }
-    }
 
-    componentDidMount() {
-        axios.get('http://localhost:3500/surveys')
-        .then(response => {
-            this.setState({
-                surveyList: response.data
-            })
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
+    } , [surveys])
 
-    getSurveyList() {
-        return this.state.surveyList.map(currentSource => {
-            return <Surveys source={currentSource} key={currentSource._id} />
-        });
-    }
 
-    render() {
-        return (
-        
-            <div>
-                <section id="survey-questions" className="parallex-section">
-                    <div className="container" >
-                        <div className="row">
-                            <div className="col-md-offset-1 col-md-10 col-sm-12" >
-                                {/* <div className="survey-question-wrapper" style={{ paddingTop : 8}}> 
-                                    <h3 className="wow fadeInUp" data-wow-delay="0.4s" > iLearn </h3>
-                                    <h1 className="wow fadeInUp" data-wow-delay="0.6s" >Explore our online surveys</h1>
-                                    <a href="#work" className="wow fadeInUp smoothScroll arrow-btn" data-wow-delay="1s"><i className="fa fa-angle-double-down"></i></a>
-                                </div> */}
-                            </div>
+    // Get current posts
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts=surveys
+    // const currentPosts = surveys.slice(indexOfFirstPost, indexOfLastPost);
+
+    return (
+        <div>
+            <section id="survey-questions" className="parallex-section">
+                <div className="container" >
+                    <div className="row">
+                        <div className="col-md-offset-1 col-md-10 col-sm-12" >
                         </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <section id="work" class="parallax-section">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-12 col-sm-12">
-                                {/* <div className="wow fadeInUp section-title" data-wow-delay="0.2s">
-                                    <h2>Please help us by filling our survey</h2>
-                                    <p>Here are few pictures of places of Paris displayed on the screen. Please select places that you think are in Paris.</p>
-                                </div> */}
+            <section id="work" class="parallax-section">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-12 col-sm-12">
+                            <div className="wow fadeInUp section-title" data-wow-delay="0.2s">
+                                <h2>Please help us by filling our survey</h2>
+                                <p>Here are few pictures of places of Paris displayed on the screen. Please select places that you think are in Paris.</p>
                             </div>
+                        </div>
 
-                            <table>
+                        <table>
                                 <tr>
                                     <td>
                                         <div class="wow fadeInUp col-md-3 col-sm-6" data-wow-delay="0.4s" >
                                             <div class="work-thumb">
                                                 <ul>
                                                     <li><input type="checkbox" id="cb1"/>
-                                                        <label for ="cb1"><img src={this.getSurveyList()} class="img-survey"/></label>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>  
-                                    </td>
-
-                                    <td>
-                                        <div class="wow fadeInUp col-md-3 col-sm-6" data-wow-delay="0.4s" >
-                                            <div class="work-thumb">
-                                                <ul>
-                                                    <li><input type="checkbox" id="cb2"/>
-                                                        <label for ="cb2"><img src={this.getSurveyList()} class="img-survey"/></label>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>  
-                                    </td>
-
-                                    <td>
-                                        <div class="wow fadeInUp col-md-3 col-sm-6" data-wow-delay="0.4s" >
-                                            <div class="work-thumb">
-                                                <ul>
-                                                    <li><input type="checkbox" id="cb3"/>
-                                                        <label for ="cb3"><img src={this.getSurveyList()} class="img-survey"/></label>
+                                                        <SurveryComponents surveys= {currentPosts}/>                   
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>  
                                     </td>
                                 </tr>
-                         </table>
+                        </table>  
 
-                         <table>
-                                <tr>
-                                    <td>
-                                        <div class="wow fadeInUp col-md-3 col-sm-6" data-wow-delay="0.4s" >
-                                            <div class="work-thumb">
-                                                <ul>
-                                                    <li><input type="checkbox" id="cb4"/>
-                                                        <label for ="cb4"><img src={this.getSurveyList()} class="img-survey"/></label>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>  
-                                    </td>
+                        <div class="wow fadeInUp flex-parent jc-center">
+                            <button class="submitbtn margin-right" name="submit" type="submit">Submit</button>
+                            <button class="nextbtn" name="next" type="next" onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
 
-                                    <td>
-                                        <div class="wow fadeInUp col-md-3 col-sm-6" data-wow-delay="0.4s" >
-                                            <div class="work-thumb">
-                                                <ul>
-                                                    <li><input type="checkbox" id="cb5"/>
-                                                        <label for ="cb5"><img src={this.getSurveyList()} class="img-survey"/></label>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>  
-                                    </td>
-
-                                    <td>
-                                        <div class="wow fadeInUp col-md-3 col-sm-6" data-wow-delay="0.4s" >
-                                            <div class="work-thumb">
-                                                <ul>
-                                                    <li><input type="checkbox" id="cb6"/>
-                                                        <label for ="cb6"><img src={this.getSurveyList()} class="img-survey"/></label>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>  
-                                    </td>
-                                </tr>
-                         </table>
-
-                      
-                        <div class="wow fadeInUp col-md-3 col-sm-6">
-                            <button class="submitbtn" name="submit" type="submit">Submit</button>
-                        </div>
-                                
-                        <div class="wow fadeInUp col-md-3 col-sm-6" >
-                            <button class="nextbtn" name="next" type="next">Next</button>
-                        </div>
-                               
-
-
-                            {/* <div className="wow fadeInUp col-md-3 col-sm-6">
-                                <div className="row">
-                                    { this.getSurveyList()  }   
-                                </div>
-                            </div> */}
-      
                         </div>
                     </div>
-            </section>
-            </div>
-        )
-    }
+                </div>
+                {/* <div>
+                <button className="submitbtn" name="submit" type="submit">Submit</button>
+                <button className="nextbtn" name="next" type="next" onClick={() => setCurrentPage(currentPage + 1)}>Next</button>   
+                </div> */}
+                </section>
+        </div>
+
+    )
 }
 
-// export default Survey 
-             
-
-
-              
-
+export default SurveyQuestions;
+// surveys = {currentPosts}
 
