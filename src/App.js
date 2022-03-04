@@ -6,9 +6,9 @@ import Navbar from './components/Navbar.js'
 import Home from './components/Home.js'
 import Survey from './components/Survey.js'
 import SurveyQuestions from './components/SurveyQuestions';
-import Profile from './components/Profile'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Footer from './components/Footer';
+import Profile from './components/Profile'
 
 function App() {
   return (

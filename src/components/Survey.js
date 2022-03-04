@@ -34,7 +34,7 @@ export const Survey = () => {
                         <div className="col-md-12 col-sm-12">
                             <div className="wow fadeInUp section-title" data-wow-delay="0.2s" style={{ paddingTop: 8}}>
                                 <h2 >Survey Categories</h2>
-                                <p>At iLearn, taking surveys is a piece of cake. Choose a category from below or <a href="survey.ejs"><b>Click here</b></a> to explore more and begin!</p>
+                                <p>At iLearn, taking surveys is a piece of cake. Choose a category from below to begin!</p>
                             </div>
                         </div>
                         
@@ -46,7 +46,7 @@ export const Survey = () => {
                                             <div className="service-item">
                                             <Link to={'/surveys/'+ survey.category} className="nav-item nav-link active is-active" active-color="cyan">
                                                 <div className="service-icon">
-                                                    <img src={survey.images} alt={survey.category} width="150px" height="150px" />
+                                                    <img src={survey.category}  width="150px" height="150px" />
                                                 </div>
                                                 <h3>{survey.category}</h3>
                                                 </Link>  

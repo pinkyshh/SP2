@@ -8,14 +8,13 @@ export const SurveyQuestions = () => {
     const [surveys, setSurveys] = useState([]);
     const [questions, setQuestions] = useState([]);
     const [currentPage, setCurrentPage] =useState(1);
-    const [postsPerPage] = useState(5);
+    const [postsPerPage] = useState(6);
 
     useEffect(() => {
         const fetchSurveys = async () => {
             const res = await axios.get(`http://localhost:3500/surveys/${params.id}`);
-            console.log(res);
-            setSurveys(res.data);
-            setCurrentPage(1)
+            setCurrentPage(1);
+            setSurveys(res.data.images);
         };
         fetchSurveys();
     }, []);
@@ -37,6 +36,7 @@ export const SurveyQuestions = () => {
             }
 
             setQuestions(posts)
+            console.log(posts)
         }
 
     } , [surveys])
@@ -45,8 +45,7 @@ export const SurveyQuestions = () => {
     // Get current posts
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPosts=surveys
-    // const currentPosts = surveys.slice(indexOfFirstPost, indexOfLastPost);
+    const currentPosts = surveys.slice(indexOfFirstPost, indexOfLastPost);
 
     return (
         <div>
@@ -59,7 +58,7 @@ export const SurveyQuestions = () => {
                 </div>
             </section>
 
-            <section id="work" class="parallax-section">
+            <section id="work" className="parallax-section">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12 col-sm-12">
@@ -69,33 +68,21 @@ export const SurveyQuestions = () => {
                             </div>
                         </div>
 
-                        <table>
-                                <tr>
-                                    <td>
-                                        <div class="wow fadeInUp col-md-3 col-sm-6" data-wow-delay="0.4s" >
-                                            <div class="work-thumb">
-                                                <ul>
-                                                    <li><input type="checkbox" id="cb1"/>
-                                                        <SurveryComponents surveys= {currentPosts}/>                   
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>  
-                                    </td>
-                                </tr>
-                        </table>  
+                        
+                        <div className="wow fadeInUp" data-wow-delay="0.4s" >
+                            <div className="work-thumb">
+                                <SurveryComponents surveys={currentPosts}/>
+                            </div>
+                        </div>  
 
-                        <div class="wow fadeInUp flex-parent jc-center">
-                            <button class="submitbtn margin-right" name="submit" type="submit">Submit</button>
-                            <button class="nextbtn" name="next" type="next" onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+                        <div className="wow fadeInUp flex-parent jc-center">
+                            <button className="submitbtn margin-right" name="submit" type="submit">Submit</button>
+                            <button className="nextbtn" name="next" type="next" onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
 
                         </div>
                     </div>
                 </div>
-                {/* <div>
-                <button className="submitbtn" name="submit" type="submit">Submit</button>
-                <button className="nextbtn" name="next" type="next" onClick={() => setCurrentPage(currentPage + 1)}>Next</button>   
-                </div> */}
+             
                 </section>
         </div>
 
@@ -103,5 +90,5 @@ export const SurveyQuestions = () => {
 }
 
 export default SurveyQuestions;
-// surveys = {currentPosts}
+
 

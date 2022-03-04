@@ -1,13 +1,27 @@
- import React from 'react'
+import React from 'react'
 import aboutImage from '../assets/images/about-image.jpg'
 import surveyClip from '../assets/images/surveyClip.png'
 import cat from '../assets/images/cat.png'
 import electricCar from '../assets/images/electric-car.png'
 import road from '../assets/images/work-tools.png'
 import { Link } from 'react-router-dom'
-
+import { auth } from './firebase-config'
+import {signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 
 function Home() {
+    const auth = getAuth();
+    const signInWithGoogle = ()=>{
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+        .then((re)=>{
+            console.log(re);
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+
     return (
         <div>
             <section id="home" className="parallax-section">
@@ -31,8 +45,8 @@ function Home() {
                             <img src={aboutImage} className="wow fadeInUp img-responsive" data-wow-delay="0.2s" alt="about image"/>
                             <div className="wow fadeInUp" data-wow-delay="0.4s">    
                                 <h4>Interested to Join?</h4>
-                                <p >Sign up completely free. It only takes a minute.</p>
-                                <Link to="#">Sign Up Now</Link>
+                                {/* <p>Sign up completely free. It only takes a minute.</p> */}
+                                <button className="signInbtn" name="signIn" onClick={signInWithGoogle}>Sign In</button>
                             </div>
                         </div>
 
@@ -53,13 +67,13 @@ function Home() {
             </div>
         </section>
 
-        <section id="work" class="parallax-section">
-                <div class="container">
-                        <div class="row">
-                                <div class="col-md-12 col-sm-12">
-                                    <div class="wow fadeInUp section-title" data-wow-delay="0.2s">
+        <section id="work" className="parallax-section">
+                <div className="container">
+                        <div className="row">
+                                <div className="col-md-12 col-sm-12">
+                                    <div className="wow fadeInUp section-title" data-wow-delay="0.2s">
                                         <h2>Survey Categories</h2>
-                                        <p>At iLearn, taking surveys is a piece of cake. Choose a category from below or <a href="survey.html"><b>Click here</b></a> to explore more and begin!</p>
+                                        <p>At iLearn, taking surveys is a piece of cake. Choose a category from below or <a href="/survey"><b>Click here</b></a> to explore more and begin!</p>
                                     </div>
                                 </div>
 

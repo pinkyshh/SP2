@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 
+
 function Navbar() {
   return (
       <>
@@ -13,7 +14,7 @@ function Navbar() {
                         <Link to="/survey" className="nav-item nav-link active is-active" active-color="cyan">Survey</Link> 
                         <Link to="/profile" className="nav-item nav-link active is-active" active-color="cyan">Profile</Link>
                         <b>|</b>
-                        <button className="loginbtn" name="login">Join now</button>
+                        {/* <Link to="/signin" className="loginbtn" name="login">Join now</Link> */}
                     </div>
                     <span className="nav-indicator"></span>
                 </div>
